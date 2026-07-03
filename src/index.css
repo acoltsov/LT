@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+/* Class-based dark mode: `dark` class is set on <html> by useTheme. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Raleway", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Off-white used for section bands and quiet card washes. */
+  --color-cream: #f7f8f1;
+
+  /* Dark canvas: a touch warmer than slate-950 so dark mode reads navy, not black. */
+  --color-night: #0b1120;
+  --color-night-soft: #101a30;
+
+  --animate-marquee: marquee 38s linear infinite;
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: light;
+}
+html.dark {
+  color-scheme: dark;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-marquee {
+    animation: none !important;
+  }
+}
+
+body {
+  @apply bg-white font-sans text-slate-700 antialiased dark:bg-night dark:text-slate-300;
+}
+
+::selection {
+  background: rgb(163 230 53 / 0.4);
+}
+
+:where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+  outline: 2px solid #4d7c0f;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.marquee-mask {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 8%,
+    black 92%,
+    transparent
+  );
+}

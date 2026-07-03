@@ -1,0 +1,12 @@
+node_modules
+dist
+dist-ssr
+*.local
+.env
+.DS_Store
+*.tsbuildinfo
+
+# Local tooling & internal planning docs — not part of the site
+.claude/
+LT XL Plan*
+linktrades-website-prompt.md
