@@ -44,7 +44,7 @@ The form is fully wired UI-side (role select, validation, loading, success state
 ## Design system (short version)
 
 - **Pure white** base with ink/navy neutrals (`slate` scale). Highlights: **lime green** (`lime-400/500` fills with ink text, `lime-700` for small text on white), **pale green** tints (`lime-500/15` washes, pale gridlines), and **off-white** section bands (`--color-cream`, `#f7f8f1`). Trust-green `#10B981` stays reserved for reliability/positive stats.
-- **Interactive gridlines**: the blueprint grid in the hero, reputation, and waitlist sections is a canvas (`src/components/ui/WarpGrid.tsx`) whose lines warp away from the cursor and spring back. It renders a static grid under `prefers-reduced-motion` and for touch input, and only animates while on-screen.
+- **Interactive gridlines**: the blueprint grid in the hero, reputation, and waitlist sections is a canvas (`src/components/ui/WarpGrid.tsx`) that behaves like a spacetime fabric — the cursor acts as a dense mass and nearby lines are pulled inward, gravity-well style, springing back when it leaves. It renders a static grid under `prefers-reduced-motion` and for touch input, and only animates while on-screen.
 - Dark mode: class-based (`dark` on `<html>`), persisted to `localStorage("lt-theme")`, defaults to system preference; a pre-paint script in `index.html` prevents theme flash.
 - CTA fills use dark ink text on lime (not white) deliberately — white-on-lime fails WCAG contrast.
 - All motion respects `prefers-reduced-motion` (Framer Motion `useReducedMotion` + CSS media query for the marquee).

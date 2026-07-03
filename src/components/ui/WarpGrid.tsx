@@ -2,9 +2,9 @@ import { useEffect, useRef } from "react";
 import { useReducedMotion } from "framer-motion";
 
 const SPACING = 44; // px between gridlines — matches the old CSS grid
-const SAMPLE = 14; // px between points along a line (warp resolution)
-const RADIUS = 180; // cursor influence radius
-const STRENGTH = 30; // max displacement in px
+const SAMPLE = 12; // px between points along a line (warp resolution)
+const RADIUS = 230; // gravitational influence radius
+const PULL = 0.72; // max radial compression toward the mass (0–1)
 
 interface WarpGridProps {
   className?: string;
@@ -13,9 +13,11 @@ interface WarpGridProps {
 }
 
 /**
- * Blueprint gridlines drawn on a canvas that bulge away from the cursor and
- * spring back when it leaves. Renders a static grid under reduced motion and
- * for touch input; the animation loop only runs while on-screen and unsettled.
+ * Blueprint gridlines drawn on a canvas that behave like a spacetime fabric:
+ * the cursor is a dense mass, and nearby lines are pulled inward — spacing
+ * compresses toward it like a gravity well — springing back when it leaves.
+ * Renders a static grid under reduced motion and for touch input; the
+ * animation loop only runs while on-screen and unsettled.
  */
 export function WarpGrid({ className = "", variant = "auto" }: WarpGridProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -47,10 +49,13 @@ export function WarpGrid({ className = "", variant = "auto" }: WarpGridProps) {
       const dy = py - pointer.y;
       const dist = Math.hypot(dx, dy);
       if (dist >= RADIUS || dist < 0.0001) return [px, py];
-      const t = 1 - dist / RADIUS;
-      const falloff = t * t * (3 - 2 * t); // smoothstep
-      const push = (STRENGTH * pointer.energy * falloff) / dist;
-      return [px + dx * push, py + dy * push];
+      // Gravity-well compression: radial distance to the mass shrinks by a
+      // factor that peaks at the center and fades smoothly to 0 at RADIUS.
+      // r' = r * (1 - c) stays monotonic in r, so lines never fold over.
+      const t = dist / RADIUS;
+      const compression = PULL * pointer.energy * (1 - t) * (1 - t);
+      const scale = 1 - compression;
+      return [pointer.x + dx * scale, pointer.y + dy * scale];
     };
 
     const draw = () => {
