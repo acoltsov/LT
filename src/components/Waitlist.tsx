@@ -50,29 +50,29 @@ export function Waitlist() {
       id="waitlist"
       className="relative scroll-mt-20 overflow-hidden border-t border-slate-200 py-20 sm:py-28 dark:border-slate-800"
     >
-      <div className="absolute inset-0 bg-slate-900 dark:bg-night-soft" aria-hidden="true" />
-      <WarpGrid variant="onDark" className="absolute inset-0 size-full opacity-60" />
+      <div className="absolute inset-0 bg-cream dark:bg-night-soft" aria-hidden="true" />
+      <WarpGrid className="absolute inset-0 size-full opacity-70" />
       <div
-        className="absolute -top-24 left-1/2 h-72 w-[36rem] -translate-x-1/2 rounded-full bg-lime-400/20 blur-3xl"
+        className="absolute -top-24 left-1/2 h-72 w-[36rem] -translate-x-1/2 rounded-full bg-lime-400/25 blur-3xl dark:bg-lime-400/15"
         aria-hidden="true"
       />
 
       <div className="relative mx-auto max-w-2xl px-4 text-center sm:px-6">
         <Reveal>
-          <p className="font-mono text-xs font-medium tracking-[0.22em] text-lime-300 uppercase">
+          <p className="font-mono text-xs font-medium tracking-[0.22em] text-lime-700 uppercase dark:text-lime-300">
             Get in first
           </p>
-          <h2 className="mt-4 font-display text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+          <h2 className="mt-4 font-display text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
             The network is only as good as who's on it. Start with you.
           </h2>
-          <p className="mt-4 text-slate-300">
+          <p className="mt-4 text-slate-600 dark:text-slate-300">
             We'll onboard the first wave of window & door crews at launch.
             Early testers shape the product — and get launch perks.
           </p>
         </Reveal>
 
         <Reveal delay={0.12} className="mt-10">
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm sm:p-8">
+          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-lg shadow-slate-900/5 sm:p-8 dark:border-white/10 dark:bg-white/5 dark:shadow-none dark:backdrop-blur-sm">
             <AnimatePresence mode="wait" initial={false}>
               {state === "success" ? (
                 <motion.div
@@ -88,25 +88,25 @@ export function Waitlist() {
                     animate={{ scale: 1 }}
                     transition={{ type: "spring", stiffness: 300, damping: 16, delay: 0.1 }}
                   >
-                    <CheckCircle2 className="size-14 text-emerald-400" aria-hidden="true" />
+                    <CheckCircle2 className="size-14 text-emerald-500 dark:text-emerald-400" aria-hidden="true" />
                   </motion.span>
-                  <h3 className="font-display text-xl font-extrabold text-white">
+                  <h3 className="font-display text-xl font-extrabold text-slate-900 dark:text-white">
                     You're on the list.
                   </h3>
-                  <p className="max-w-sm text-sm text-slate-300">
+                  <p className="max-w-sm text-sm text-slate-600 dark:text-slate-300">
                     We'll email you as soon as onboarding opens in your area.
                     {position !== null && (
                       <>
                         {" "}
                         You're{" "}
-                        <span className="font-mono font-bold text-lime-300">
+                        <span className="font-mono font-bold text-lime-700 dark:text-lime-300">
                           #{position}
                         </span>{" "}
                         on this device's demo counter.
                       </>
                     )}
                   </p>
-                  <p className="font-mono text-[10px] tracking-wide text-slate-400 uppercase">
+                  <p className="font-mono text-[10px] tracking-wide text-slate-500 uppercase dark:text-slate-400">
                     Demo form — signups aren't stored yet
                   </p>
                   <button
@@ -115,7 +115,7 @@ export function Waitlist() {
                       setState("idle");
                       setEmail("");
                     }}
-                    className="mt-2 text-sm font-semibold text-slate-300 underline-offset-4 hover:text-white hover:underline"
+                    className="mt-2 text-sm font-semibold text-slate-600 underline-offset-4 hover:text-slate-900 hover:underline dark:text-slate-300 dark:hover:text-white"
                   >
                     Add another email
                   </button>
@@ -130,7 +130,7 @@ export function Waitlist() {
                   noValidate
                 >
                   <fieldset>
-                    <legend className="pb-3 text-left text-sm font-semibold text-slate-200">
+                    <legend className="pb-3 text-left text-sm font-semibold text-slate-800 dark:text-slate-200">
                       I'm joining as a…
                     </legend>
                     <div className="flex flex-wrap gap-2">
@@ -148,7 +148,7 @@ export function Waitlist() {
                             className={`rounded-full border px-4 py-2 text-sm font-semibold transition-colors ${
                               active
                                 ? "border-lime-500 bg-lime-400 text-slate-950"
-                                : "border-white/20 text-slate-300 hover:border-white/40 hover:text-white"
+                                : "border-slate-300 text-slate-600 hover:border-slate-400 hover:text-slate-900 dark:border-white/20 dark:text-slate-300 dark:hover:border-white/40 dark:hover:text-white"
                             }`}
                           >
                             {option.label}
@@ -176,8 +176,10 @@ export function Waitlist() {
                         placeholder="you@crew.com"
                         aria-invalid={error ? true : undefined}
                         aria-describedby={error ? "waitlist-error" : undefined}
-                        className={`w-full rounded-xl border bg-white/10 py-3 pr-4 pl-10 text-sm text-white placeholder:text-slate-500 ${
-                          error ? "border-rose-400" : "border-white/20"
+                        className={`w-full rounded-xl border bg-white py-3 pr-4 pl-10 text-sm text-slate-900 placeholder:text-slate-400 dark:bg-white/10 dark:text-white dark:placeholder:text-slate-500 ${
+                          error
+                            ? "border-rose-500 dark:border-rose-400"
+                            : "border-slate-300 dark:border-white/20"
                         }`}
                       />
                     </label>
@@ -203,14 +205,14 @@ export function Waitlist() {
                     {error && (
                       <p
                         id="waitlist-error"
-                        className="mt-2 text-left text-sm font-medium text-rose-300"
+                        className="mt-2 text-left text-sm font-medium text-rose-600 dark:text-rose-300"
                       >
                         {error}
                       </p>
                     )}
                   </div>
 
-                  <p className="mt-4 text-left text-xs text-slate-400">
+                  <p className="mt-4 text-left text-xs text-slate-500 dark:text-slate-400">
                     No spam — one email when your area opens, maybe two.
                   </p>
                 </motion.form>
