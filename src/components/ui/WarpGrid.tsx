@@ -52,11 +52,38 @@ export function WarpGrid({ className = "", variant = "auto" }: WarpGridProps) {
     };
     let activeTouchId = -1;
 
-    const lineColor = () => {
-      const dark =
-        variant === "onDark" ||
-        document.documentElement.classList.contains("dark");
-      return dark ? "rgba(190, 242, 100, 0.09)" : "rgba(101, 163, 13, 0.13)";
+    const isDark = () =>
+      variant === "onDark" ||
+      document.documentElement.classList.contains("dark");
+
+    const lineColor = () =>
+      isDark() ? "rgba(190, 242, 100, 0.09)" : "rgba(101, 163, 13, 0.13)";
+
+    /** Soft lime glow riding on the mass — replaces the old static blob. */
+    const drawGlow = () => {
+      if (pointer.energy <= 0.01) return;
+      const glowRadius = RADIUS * (1.15 + 0.55 * pointer.hold);
+      const alpha =
+        (isDark() ? 0.11 : 0.15) * pointer.energy * (1 + 0.6 * pointer.hold);
+      const rgb = isDark() ? "190, 242, 100" : "132, 204, 22";
+      const gradient = ctx.createRadialGradient(
+        pointer.x,
+        pointer.y,
+        0,
+        pointer.x,
+        pointer.y,
+        glowRadius,
+      );
+      gradient.addColorStop(0, `rgba(${rgb}, ${alpha})`);
+      gradient.addColorStop(0.55, `rgba(${rgb}, ${alpha * 0.35})`);
+      gradient.addColorStop(1, `rgba(${rgb}, 0)`);
+      ctx.fillStyle = gradient;
+      ctx.fillRect(
+        pointer.x - glowRadius,
+        pointer.y - glowRadius,
+        glowRadius * 2,
+        glowRadius * 2,
+      );
     };
 
     const warp = (px: number, py: number): [number, number] => {
@@ -81,6 +108,7 @@ export function WarpGrid({ className = "", variant = "auto" }: WarpGridProps) {
 
     const draw = () => {
       ctx.clearRect(0, 0, width, height);
+      drawGlow();
       ctx.strokeStyle = lineColor();
       ctx.lineWidth = 1;
       ctx.beginPath();

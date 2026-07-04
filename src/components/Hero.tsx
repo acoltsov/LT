@@ -39,10 +39,6 @@ export function Hero() {
         className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white dark:to-night"
         aria-hidden="true"
       />
-      <div
-        className="absolute top-24 right-[-10%] h-96 w-96 rounded-full bg-lime-500/20 blur-3xl dark:bg-lime-500/15"
-        aria-hidden="true"
-      />
 
       <div className="relative mx-auto grid max-w-6xl gap-14 px-4 pt-28 pb-16 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:pt-36 lg:pb-24">
         <div className="flex flex-col items-start gap-6">
