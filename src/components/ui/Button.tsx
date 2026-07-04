@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
-import type { ReactNode } from "react";
+import type { MouseEvent, ReactNode } from "react";
 
 type Variant = "primary" | "secondary" | "ghost";
 type Size = "sm" | "md" | "lg";
@@ -14,6 +14,37 @@ interface ButtonProps {
   disabled?: boolean;
   className?: string;
   ariaLabel?: string;
+}
+
+/**
+ * Scroll to an in-page anchor programmatically. Anchor default navigation is
+ * unreliable here: it races the nav menu's exit animation and silently
+ * no-ops when the hash is already set — this always scrolls.
+ *
+ * The scroll itself is deferred past the click's render commit: starting a
+ * smooth scroll in the same tick as a state update that unmounts the mobile
+ * menu gets the scroll cancelled by the browser.
+ */
+export function scrollToAnchor(
+  href: string,
+  event: MouseEvent<HTMLElement>,
+  reducedMotion: boolean | null,
+) {
+  if (!href.startsWith("#")) return;
+  // Preserve open-in-new-tab and other modified clicks.
+  if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) {
+    return;
+  }
+  const target = document.getElementById(href.slice(1));
+  if (!target) return;
+  event.preventDefault();
+  history.replaceState(null, "", href);
+  window.setTimeout(() => {
+    target.scrollIntoView({
+      behavior: reducedMotion ? "auto" : "smooth",
+      block: "start",
+    });
+  }, 60);
 }
 
 const variantClasses: Record<Variant, string> = {
@@ -52,7 +83,10 @@ export function Button({
     return (
       <motion.a
         href={href}
-        onClick={onClick}
+        onClick={(event) => {
+          onClick?.();
+          scrollToAnchor(href, event, reducedMotion);
+        }}
         aria-label={ariaLabel}
         className={classes}
         {...motionProps}

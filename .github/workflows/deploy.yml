@@ -26,11 +26,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      # npm install (not ci): the lockfile isn't in the repo yet — it was
-      # bootstrapped via the GitHub API, which can't carry the 46KB lockfile
-      # reliably. Push package-lock.json + switch back to `npm ci` once a
-      # normal git push is possible.
-      - run: npm install --no-audit --no-fund
+          cache: npm
+      - run: npm ci
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:

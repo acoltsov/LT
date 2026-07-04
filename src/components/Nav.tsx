@@ -3,7 +3,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Menu, Moon, Sun, X } from "lucide-react";
 import { useTheme } from "../hooks/useTheme";
 import { useActiveSection } from "../hooks/useActiveSection";
-import { Button } from "./ui/Button";
+import { Button, scrollToAnchor } from "./ui/Button";
 
 const navLinks = [
   { id: "how-it-works", label: "How it works" },
@@ -90,6 +90,7 @@ export function Nav() {
             <li key={link.id}>
               <a
                 href={`#${link.id}`}
+                onClick={(event) => scrollToAnchor(`#${link.id}`, event, reducedMotion)}
                 aria-current={active === link.id ? "true" : undefined}
                 className={`relative rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                   active === link.id
@@ -163,7 +164,10 @@ export function Nav() {
                 >
                   <a
                     href={`#${link.id}`}
-                    onClick={() => setMenuOpen(false)}
+                    onClick={(event) => {
+                      setMenuOpen(false);
+                      scrollToAnchor(`#${link.id}`, event, reducedMotion);
+                    }}
                     className={`block rounded-lg px-3 py-3 text-base font-medium ${
                       active === link.id
                         ? "text-lime-700 dark:text-lime-300"
