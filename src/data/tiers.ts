@@ -1,5 +1,19 @@
 export type TierId = "lead" | "solid" | "reliable" | "backup" | "general";
 
+/** A fictional-but-typical profile for someone sitting at this tier. */
+export interface TierProfile {
+  name: string;
+  initials: string;
+  role: string;
+  verified: boolean;
+  rating: number;
+  hireAgain: number;
+  jobs: number;
+  noShows: number;
+  onTime: number;
+  reviewers: number;
+}
+
 export interface Tier {
   id: TierId;
   name: string;
@@ -16,6 +30,7 @@ export interface Tier {
   chip: string;
   bar: string;
   dot: string;
+  profile: TierProfile;
 }
 
 export const tiers: Tier[] = [
@@ -31,6 +46,18 @@ export const tiers: Tier[] = [
     chip: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 ring-emerald-500/30",
     bar: "bg-emerald-500",
     dot: "bg-emerald-500",
+    profile: {
+      name: "Denis K.",
+      initials: "DK",
+      role: "Window & door install · Lead installer · Mississauga",
+      verified: true,
+      rating: 4.9,
+      hireAgain: 98,
+      jobs: 124,
+      noShows: 0,
+      onTime: 99,
+      reviewers: 41,
+    },
   },
   {
     id: "solid",
@@ -44,6 +71,18 @@ export const tiers: Tier[] = [
     chip: "bg-teal-500/10 text-teal-700 dark:text-teal-300 ring-teal-500/30",
     bar: "bg-teal-500",
     dot: "bg-teal-500",
+    profile: {
+      name: "Marco D.",
+      initials: "MD",
+      role: "Window & door install · Helper · Etobicoke",
+      verified: true,
+      rating: 4.8,
+      hireAgain: 96,
+      jobs: 38,
+      noShows: 0,
+      onTime: 98,
+      reviewers: 21,
+    },
   },
   {
     id: "reliable",
@@ -57,6 +96,18 @@ export const tiers: Tier[] = [
     chip: "bg-sky-500/10 text-sky-700 dark:text-sky-300 ring-sky-500/30",
     bar: "bg-sky-500",
     dot: "bg-sky-500",
+    profile: {
+      name: "Sam T.",
+      initials: "ST",
+      role: "Window & door install · Helper · Brampton",
+      verified: true,
+      rating: 4.5,
+      hireAgain: 89,
+      jobs: 22,
+      noShows: 0,
+      onTime: 96,
+      reviewers: 14,
+    },
   },
   {
     id: "backup",
@@ -70,6 +121,18 @@ export const tiers: Tier[] = [
     chip: "bg-amber-500/10 text-amber-700 dark:text-amber-300 ring-amber-500/30",
     bar: "bg-amber-500",
     dot: "bg-amber-500",
+    profile: {
+      name: "Jordan P.",
+      initials: "JP",
+      role: "Window & door install · Helper · Scarborough",
+      verified: false,
+      rating: 3.7,
+      hireAgain: 61,
+      jobs: 12,
+      noShows: 1,
+      onTime: 82,
+      reviewers: 8,
+    },
   },
   {
     id: "general",
@@ -83,6 +146,18 @@ export const tiers: Tier[] = [
     chip: "bg-rose-500/10 text-rose-700 dark:text-rose-300 ring-rose-500/30",
     bar: "bg-rose-500",
     dot: "bg-rose-500",
+    profile: {
+      name: "Chris B.",
+      initials: "CB",
+      role: "Window & door install · Helper · North York",
+      verified: false,
+      rating: 2.4,
+      hireAgain: 18,
+      jobs: 9,
+      noShows: 3,
+      onTime: 54,
+      reviewers: 6,
+    },
   },
 ];
 

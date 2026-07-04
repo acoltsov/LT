@@ -61,106 +61,139 @@ const trustRules = [
 
 function SampleProfile({ tierId, statsStarted }: { tierId: TierId; statsStarted: boolean }) {
   const tier = tiers.find((t) => t.id === tierId) ?? tiers[1];
+  const profile = tier.profile;
   const reducedMotion = useReducedMotion();
+
+  const onTimeBar =
+    profile.onTime >= 90
+      ? "bg-emerald-500"
+      : profile.onTime >= 70
+        ? "bg-amber-500"
+        : "bg-rose-500";
 
   return (
     <div className="relative rounded-2xl border border-slate-200 bg-white p-6 shadow-xl shadow-slate-900/5 sm:p-8 dark:border-slate-700 dark:bg-slate-900 dark:shadow-black/25">
       <span className="absolute -top-3 left-6 rounded-full border border-slate-300 bg-cream px-2.5 py-0.5 font-mono text-[10px] font-semibold tracking-widest text-slate-500 uppercase dark:border-slate-600 dark:bg-slate-800 dark:text-slate-400">
-        Sample profile
+        Sample profile — typical for this tier
       </span>
 
-      <div className="flex items-start gap-4">
-        <span className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-slate-900 font-display text-lg font-bold text-white dark:bg-slate-700">
-          MD
-        </span>
-        <div className="min-w-0">
-          <div className="flex flex-wrap items-center gap-2">
-            <h3 className="font-display text-xl font-extrabold text-slate-900 dark:text-white">
-              Marco D.
-            </h3>
-            <span className="flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[11px] font-semibold text-emerald-700 dark:text-emerald-300">
-              <BadgeCheck className="size-3.5" aria-hidden="true" />
-              Verified
-            </span>
-          </div>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
-            Window & door install · Helper · Etobicoke
-          </p>
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.span
-              key={tier.id}
-              initial={reducedMotion ? false : { opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={reducedMotion ? undefined : { opacity: 0, y: -6 }}
-              transition={{ duration: 0.22 }}
-              className={`mt-2 inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 font-mono text-xs font-bold tracking-wider uppercase ring-1 ${tier.chip}`}
-            >
-              Crew Card: {tier.name}
-              <span className="font-sans font-medium normal-case opacity-80">
-                — {tier.summary}
-              </span>
-            </motion.span>
-          </AnimatePresence>
-        </div>
-      </div>
-
-      <div className="mt-7 grid grid-cols-2 gap-x-6 gap-y-6 border-t border-slate-200 pt-6 sm:grid-cols-4 dark:border-slate-700">
-        <StatCounter
-          value={4.8}
-          decimals={1}
-          label="rating"
-          started={statsStarted}
-          icon={
-            <Star
-              className="size-5 translate-y-[-2px] fill-amber-400 text-amber-400"
-              aria-hidden="true"
-            />
-          }
-        />
-        <StatCounter
-          value={96}
-          suffix="%"
-          label="would hire again"
-          started={statsStarted}
-          accent="trust"
-        />
-        <StatCounter value={38} label="completed jobs" started={statsStarted} />
-        <StatCounter
-          value={0}
-          label="no-shows reported"
-          started={statsStarted}
-          accent="trust"
-        />
-      </div>
-
-      <div className="mt-6 flex flex-col gap-2.5 border-t border-slate-200 pt-5 dark:border-slate-700">
-        <div className="flex items-center justify-between text-sm">
-          <span className="text-slate-500 dark:text-slate-400">On-time rate</span>
-          <span className="font-mono font-semibold text-slate-800 dark:text-slate-200">
-            98%
-          </span>
-        </div>
-        <div
-          className="h-1.5 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700"
-          role="img"
-          aria-label="On-time rate: 98 percent"
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={tier.id}
+          initial={reducedMotion ? false : { opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={reducedMotion ? undefined : { opacity: 0, y: -6 }}
+          transition={{ duration: 0.18 }}
         >
-          <motion.div
-            className="h-full rounded-full bg-emerald-500"
-            initial={reducedMotion ? { width: "98%" } : { width: 0 }}
-            animate={{ width: statsStarted ? "98%" : reducedMotion ? "98%" : 0 }}
-            transition={{ duration: 1.2, ease: "easeOut", delay: 0.3 }}
-          />
-        </div>
-        <p className="flex items-center gap-1.5 pt-1 text-xs text-slate-500 dark:text-slate-400">
-          <Users className="size-3.5" aria-hidden="true" />
-          Reviewed by{" "}
-          <span className="font-mono font-semibold text-slate-700 dark:text-slate-300">
-            21 different people
-          </span>{" "}
-          across 38 confirmed jobs
-        </p>
-      </div>
+          <div className="flex items-start gap-4">
+            <span className="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-slate-900 font-display text-lg font-bold text-white dark:bg-slate-700">
+              {profile.initials}
+            </span>
+            <div className="min-w-0">
+              <div className="flex flex-wrap items-center gap-2">
+                <h3 className="font-display text-xl font-extrabold text-slate-900 dark:text-white">
+                  {profile.name}
+                </h3>
+                {profile.verified ? (
+                  <span className="flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[11px] font-semibold text-emerald-700 dark:text-emerald-300">
+                    <BadgeCheck className="size-3.5" aria-hidden="true" />
+                    Verified
+                  </span>
+                ) : (
+                  <span className="rounded-full bg-slate-500/10 px-2 py-0.5 text-[11px] font-semibold text-slate-500 dark:text-slate-400">
+                    Unverified
+                  </span>
+                )}
+              </div>
+              <p className="text-sm text-slate-500 dark:text-slate-400">
+                {profile.role}
+              </p>
+              <span
+                className={`mt-2 inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 font-mono text-xs font-bold tracking-wider uppercase ring-1 ${tier.chip}`}
+              >
+                Crew Card: {tier.name}
+                <span className="font-sans font-medium normal-case opacity-80">
+                  — {tier.summary}
+                </span>
+              </span>
+            </div>
+          </div>
+
+          <div className="mt-7 grid grid-cols-2 gap-x-6 gap-y-6 border-t border-slate-200 pt-6 sm:grid-cols-4 dark:border-slate-700">
+            <StatCounter
+              value={profile.rating}
+              decimals={1}
+              label="rating"
+              started={statsStarted}
+              icon={
+                <Star
+                  className="size-5 translate-y-[-2px] fill-amber-400 text-amber-400"
+                  aria-hidden="true"
+                />
+              }
+            />
+            <StatCounter
+              value={profile.hireAgain}
+              suffix="%"
+              label="would hire again"
+              started={statsStarted}
+              accent={
+                profile.hireAgain >= 85
+                  ? "trust"
+                  : profile.hireAgain >= 70
+                    ? "default"
+                    : "risk"
+              }
+            />
+            <StatCounter
+              value={profile.jobs}
+              label="completed jobs"
+              started={statsStarted}
+            />
+            <StatCounter
+              value={profile.noShows}
+              label={profile.noShows === 1 ? "no-show reported" : "no-shows reported"}
+              started={statsStarted}
+              accent={profile.noShows === 0 ? "trust" : "risk"}
+            />
+          </div>
+
+          <div className="mt-6 flex flex-col gap-2.5 border-t border-slate-200 pt-5 dark:border-slate-700">
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-slate-500 dark:text-slate-400">On-time rate</span>
+              <span className="font-mono font-semibold text-slate-800 dark:text-slate-200">
+                {profile.onTime}%
+              </span>
+            </div>
+            <div
+              className="h-1.5 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700"
+              role="img"
+              aria-label={`On-time rate: ${profile.onTime} percent`}
+            >
+              <motion.div
+                className={`h-full rounded-full ${onTimeBar}`}
+                initial={reducedMotion ? { width: `${profile.onTime}%` } : { width: 0 }}
+                animate={{
+                  width: statsStarted
+                    ? `${profile.onTime}%`
+                    : reducedMotion
+                      ? `${profile.onTime}%`
+                      : 0,
+                }}
+                transition={{ duration: 1.2, ease: "easeOut", delay: 0.3 }}
+              />
+            </div>
+            <p className="flex items-center gap-1.5 pt-1 text-xs text-slate-500 dark:text-slate-400">
+              <Users className="size-3.5" aria-hidden="true" />
+              Reviewed by{" "}
+              <span className="font-mono font-semibold text-slate-700 dark:text-slate-300">
+                {profile.reviewers} different people
+              </span>{" "}
+              across {profile.jobs} confirmed jobs
+            </p>
+          </div>
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }

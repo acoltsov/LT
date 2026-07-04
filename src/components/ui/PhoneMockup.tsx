@@ -200,7 +200,7 @@ export function PhoneMockup() {
       <motion.div
         animate={reducedMotion ? undefined : { y: [0, -7, 0] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -bottom-5 -left-3 rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 shadow-xl shadow-slate-900/10 sm:-left-12 dark:border-slate-700 dark:bg-slate-900 dark:shadow-black/40"
+        className="absolute -bottom-5 -left-3 z-30 rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 shadow-xl shadow-slate-900/10 sm:-left-12 dark:border-slate-700 dark:bg-slate-900 dark:shadow-black/40"
       >
         <div className="flex items-center gap-1.5">
           <Star className="size-3.5 fill-amber-400 text-amber-400" />
@@ -222,7 +222,7 @@ export function PhoneMockup() {
       <motion.div
         animate={reducedMotion ? undefined : { y: [0, 6, 0] }}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        className="absolute -top-4 right-0 flex w-max max-w-[240px] items-start gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2.5 shadow-xl shadow-slate-900/10 sm:-right-4 dark:border-slate-700 dark:bg-slate-900 dark:shadow-black/40"
+        className="absolute -top-4 right-0 z-30 flex w-max max-w-[240px] items-start gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2.5 shadow-xl shadow-slate-900/10 sm:-right-4 dark:border-slate-700 dark:bg-slate-900 dark:shadow-black/40"
       >
         <span className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-lg bg-lime-500/15">
           <Bell className="size-3 text-lime-600" />

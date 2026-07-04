@@ -28,7 +28,7 @@ All copy that changes often lives in `src/data/` — edit there, not in componen
 
 | File | Contents |
 |---|---|
-| `src/data/tiers.ts` | The 5 Crew Card tiers (names, taglines, colors) |
+| `src/data/tiers.ts` | The 5 Crew Card tiers (names, taglines, colors) + a typical sample profile per tier |
 | `src/data/reviewQuestions.ts` | Review questions for both directions + "what stood out" tags |
 | `src/data/jobFlow.ts` | How-it-works stages, product wording, off-ramp note |
 | `src/data/features.ts` | Feature grid + trade types for the marquee |

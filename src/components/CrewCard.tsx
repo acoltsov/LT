@@ -23,7 +23,8 @@ export function CrewCard({ selectedId, onSelect }: CrewCardProps) {
       <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
         A competency title that headlines every profile — like Junior → Senior,
         but for the site. Pick your tier, then let reviews from confirmed jobs
-        back it up. Tap a tier to see what it means.
+        back it up. Tap a tier to see what it means — and what a typical
+        profile at that level looks like.
       </p>
 
       <ul className="mt-5 flex flex-col gap-2">

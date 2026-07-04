@@ -10,7 +10,7 @@ interface StatCounterProps {
   icon?: ReactNode;
   /** Kick off the animation (usually when the parent scrolls into view). */
   started: boolean;
-  accent?: "default" | "trust";
+  accent?: "default" | "trust" | "risk";
 }
 
 export function StatCounter({
@@ -27,7 +27,9 @@ export function StatCounter({
   const color =
     accent === "trust"
       ? "text-emerald-600 dark:text-emerald-400"
-      : "text-slate-900 dark:text-white";
+      : accent === "risk"
+        ? "text-rose-600 dark:text-rose-400"
+        : "text-slate-900 dark:text-white";
 
   return (
     <div className="flex flex-col gap-1">
