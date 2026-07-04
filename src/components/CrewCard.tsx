@@ -101,6 +101,10 @@ export function CrewCard({ selectedId, onSelect }: CrewCardProps) {
                         <p className="mt-1 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
                           {tier.detail}
                         </p>
+                        <p className="mt-2 font-mono text-xs font-semibold text-slate-500 dark:text-slate-400">
+                          Typical rating:{" "}
+                          <span className={tier.text}>★ {tier.ratingBand}</span>
+                        </p>
                       </div>
                     </motion.div>
                   )}

@@ -23,6 +23,8 @@ export interface Tier {
   summary: string;
   /** Expanded description shown when the tier is selected. */
   detail: string;
+  /** Star-rating range typical for this tier. */
+  ratingBand: string;
   /** 5 = top of the ladder. */
   level: number;
   /** Tailwind classes — kept as full literals so the compiler picks them up. */
@@ -41,6 +43,7 @@ export const tiers: Tier[] = [
     summary: "Fully skilled",
     detail:
       "Runs the work start to finish without supervision. Reads the job, solves problems on the spot, and can be trusted with the site, the customer, and the crew.",
+    ratingBand: "4.8 – 5.0",
     level: 5,
     text: "text-emerald-600 dark:text-emerald-400",
     chip: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 ring-emerald-500/30",
@@ -66,22 +69,23 @@ export const tiers: Tier[] = [
     summary: "Follows direction",
     detail:
       "Skilled enough to carry real weight on an install once pointed in the right direction. Give clear instructions and the work gets done, done well.",
+    ratingBand: "3.9 – 4.8",
     level: 4,
     text: "text-teal-600 dark:text-teal-400",
     chip: "bg-teal-500/10 text-teal-700 dark:text-teal-300 ring-teal-500/30",
     bar: "bg-teal-500",
     dot: "bg-teal-500",
     profile: {
-      name: "Marco D.",
-      initials: "MD",
-      role: "Window & door install · Helper · Etobicoke",
+      name: "Luis R.",
+      initials: "LR",
+      role: "Window & door install · Helper · Vaughan",
       verified: true,
-      rating: 4.8,
-      hireAgain: 96,
-      jobs: 38,
+      rating: 4.4,
+      hireAgain: 90,
+      jobs: 34,
       noShows: 0,
-      onTime: 98,
-      reviewers: 21,
+      onTime: 96,
+      reviewers: 19,
     },
   },
   {
@@ -91,6 +95,7 @@ export const tiers: Tier[] = [
     summary: "Shows up & works",
     detail:
       "The dependable extra pair of hands: prep, carrying, cleanup, staging. Not running the install yet — but on time, every time, and working the whole day.",
+    ratingBand: "3.0 – 3.8",
     level: 3,
     text: "text-sky-600 dark:text-sky-400",
     chip: "bg-sky-500/10 text-sky-700 dark:text-sky-300 ring-sky-500/30",
@@ -101,8 +106,8 @@ export const tiers: Tier[] = [
       initials: "ST",
       role: "Window & door install · Helper · Brampton",
       verified: true,
-      rating: 4.5,
-      hireAgain: 89,
+      rating: 3.4,
+      hireAgain: 80,
       jobs: 22,
       noShows: 0,
       onTime: 96,
@@ -116,6 +121,7 @@ export const tiers: Tier[] = [
     summary: "Only if needed",
     detail:
       "Gets the task done when told exactly what to do, but pace and punctuality are hit-and-miss. Book when you're short-handed and can absorb the risk.",
+    ratingBand: "2.0 – 2.9",
     level: 2,
     text: "text-amber-600 dark:text-amber-400",
     chip: "bg-amber-500/10 text-amber-700 dark:text-amber-300 ring-amber-500/30",
@@ -126,11 +132,11 @@ export const tiers: Tier[] = [
       initials: "JP",
       role: "Window & door install · Helper · Scarborough",
       verified: false,
-      rating: 3.7,
-      hireAgain: 61,
+      rating: 2.5,
+      hireAgain: 45,
       jobs: 12,
       noShows: 1,
-      onTime: 82,
+      onTime: 78,
       reviewers: 8,
     },
   },
@@ -141,6 +147,7 @@ export const tiers: Tier[] = [
     summary: "Not recommended",
     detail:
       "Reviews report no-shows or work that didn't hold up. On LinkTrades this history is visible, weighted heavily, and impossible to shake off by hopping to a new group chat.",
+    ratingBand: "1.0 – 1.9",
     level: 1,
     text: "text-rose-600 dark:text-rose-400",
     chip: "bg-rose-500/10 text-rose-700 dark:text-rose-300 ring-rose-500/30",
@@ -151,12 +158,12 @@ export const tiers: Tier[] = [
       initials: "CB",
       role: "Window & door install · Helper · North York",
       verified: false,
-      rating: 2.4,
-      hireAgain: 18,
-      jobs: 9,
+      rating: 1.5,
+      hireAgain: 12,
+      jobs: 7,
       noShows: 3,
-      onTime: 54,
-      reviewers: 6,
+      onTime: 41,
+      reviewers: 5,
     },
   },
 ];
