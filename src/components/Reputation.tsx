@@ -64,10 +64,10 @@ function SampleProfile({ tierId, statsStarted }: { tierId: TierId; statsStarted:
   const profile = tier.profile;
   const reducedMotion = useReducedMotion();
 
-  const onTimeBar =
-    profile.onTime >= 90
+  const hireAgainBar =
+    profile.hireAgain >= 85
       ? "bg-emerald-500"
-      : profile.onTime >= 70
+      : profile.hireAgain >= 70
         ? "bg-amber-500"
         : "bg-rose-500";
 
@@ -133,14 +133,14 @@ function SampleProfile({ tierId, statsStarted }: { tierId: TierId; statsStarted:
               }
             />
             <StatCounter
-              value={profile.hireAgain}
+              value={profile.onTime}
               suffix="%"
-              label="would hire again"
+              label="on-time rate"
               started={statsStarted}
               accent={
-                profile.hireAgain >= 85
+                profile.onTime >= 90
                   ? "trust"
-                  : profile.hireAgain >= 70
+                  : profile.onTime >= 70
                     ? "default"
                     : "risk"
               }
@@ -160,24 +160,24 @@ function SampleProfile({ tierId, statsStarted }: { tierId: TierId; statsStarted:
 
           <div className="mt-6 flex flex-col gap-2.5 border-t border-slate-200 pt-5 dark:border-slate-700">
             <div className="flex items-center justify-between text-sm">
-              <span className="text-slate-500 dark:text-slate-400">On-time rate</span>
+              <span className="text-slate-500 dark:text-slate-400">Would hire again</span>
               <span className="font-mono font-semibold text-slate-800 dark:text-slate-200">
-                {profile.onTime}%
+                {profile.hireAgain}%
               </span>
             </div>
             <div
               className="h-1.5 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700"
               role="img"
-              aria-label={`On-time rate: ${profile.onTime} percent`}
+              aria-label={`Would hire again: ${profile.hireAgain} percent`}
             >
               <motion.div
-                className={`h-full rounded-full ${onTimeBar}`}
-                initial={reducedMotion ? { width: `${profile.onTime}%` } : { width: 0 }}
+                className={`h-full rounded-full ${hireAgainBar}`}
+                initial={reducedMotion ? { width: `${profile.hireAgain}%` } : { width: 0 }}
                 animate={{
                   width: statsStarted
-                    ? `${profile.onTime}%`
+                    ? `${profile.hireAgain}%`
                     : reducedMotion
-                      ? `${profile.onTime}%`
+                      ? `${profile.hireAgain}%`
                       : 0,
                 }}
                 transition={{ duration: 1.2, ease: "easeOut", delay: 0.3 }}
